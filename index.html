@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bab 4: Peluang - Matematika Kelas 6 Semester 2</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fredoka untuk judul ramah anak & Inter untuk keterbacaan materi -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Fredoka', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Kustomisasi animasi ringan untuk simulasi koin dan dadu */
+        @keyframes flipCoin {
+            0% { transform: rotateY(0deg) scale(1); }
+            50% { transform: rotateY(900deg) scale(1.2); }
+            100% { transform: rotateY(1800deg) scale(1); }
+        }
+
+        @keyframes rollDice {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-20deg) scale(1.15); }
+            50% { transform: rotate(25deg) scale(1.2); }
+            75% { transform: rotate(-15deg) scale(1.1); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.85) translateY(8px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .animate-flip {
+            animation: flipCoin 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .animate-roll {
+            animation: rollDice 0.55s ease-in-out;
+        }
+
+        .animate-pop {
+            animation: popIn 0.35s ease-out forwards;
+        }
+
+        /* Menghilangkan scrollbar horizontal yang tidak diinginkan */
+        body {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-indigo-200 selection:text-indigo-900">
+
+    <!-- Navbar Sticky -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Judul -->
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-display text-xl shadow-md shadow-indigo-200">
+                        🎲
+                    </div>
+                    <div>
+                        <span class="font-display font-bold text-lg text-slate-900 block leading-tight">Matematika Kelas 6</span>
+                        <span class="text-xs font-medium text-indigo-600 block">Bab 4: Peluang • Semester 2</span>
+                    </div>
+                </div>
+
+                <!-- Menu Navigasi Desktop -->
+                <div class="hidden md:flex items-center gap-1 lg:gap-2">
+                    <a href="#istilah" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition">1. Istilah Dasar</a>
+                    <a href="#simulasi" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition">2. Simulasi</a>
+                    <a href="#kejadian" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition">3. Pasti, Mungkin, Mustahil</a>
+                    <a href="#kuis" class="px-3 py-2 rounded-lg text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm transition">4. Kuis Latihan</a>
+                </div>
+
+                <!-- Tombol Efek Suara -->
+                <button id="soundToggleBtn" onclick="toggleSound()" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center gap-1.5 text-xs font-semibold" title="Aktifkan/Matikan Efek Suara">
+                    <span id="soundIcon">🔊</span>
+                    <span class="hidden sm:inline" id="soundLabel">Suara Aktif</span>
+                </button>
+            </div>
+        </div>
+        <!-- Navigasi Mobile Horizontal -->
+        <div class="flex md:hidden overflow-x-auto gap-2 px-4 py-2 bg-slate-50 border-t border-slate-200 text-xs font-semibold whitespace-nowrap">
+            <a href="#istilah" class="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700">1. Istilah Dasar</a>
+            <a href="#simulasi" class="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700">2. Simulasi</a>
+            <a href="#kejadian" class="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700">3. Jenis Kejadian</a>
+            <a href="#kuis" class="px-3 py-1.5 rounded-full bg-indigo-600 text-white">4. Kuis Latihan</a>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <header class="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-600 text-white py-12 sm:py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 text-center lg:text-left">
+                    <span class="inline-block px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-sm text-xs sm:text-sm font-semibold tracking-wide mb-4">
+                        ✨ Kurikulum Merdeka • Kelas 6 SD Semester 2
+                    </span>
+                    <h1 class="font-display text-3xl sm:text-5xl font-bold leading-tight mb-4">
+                        Belajar Peluang Jadi Seru & Mudah!
+                    </h1>
+                    <p class="text-blue-100 text-base sm:text-lg leading-relaxed mb-6 max-w-2xl mx-auto lg:mx-0">
+                        Mari pahami konsep <strong>Percobaan</strong>, <strong>Hasil</strong>, <strong>Semua Kemungkinan Hasil</strong>, serta membedakan <strong>Kejadian Pasti</strong>, <strong>Mungkin</strong>, dan <strong>Mustahil</strong> melalui simulasi interaktif.
+                    </p>
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-3">
+                        <a href="#istilah" class="px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-sm sm:text-base shadow-lg shadow-amber-500/30 transition transform hover:-translate-y-0.5">
+                            Mulai Belajar 🚀
+                        </a>
+                        <a href="#simulasi" class="px-6 py-3 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur-sm text-white font-semibold text-sm sm:text-base border border-white/30 transition">
+                            Coba Simulasi 🎲
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Ilustrasi SVG Interaktif di Hero -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-3xl shadow-2xl max-w-sm w-full text-center">
+                        <div class="flex justify-center items-center gap-4 mb-4">
+                            <!-- SVG Koin -->
+                            <div class="w-20 h-20 rounded-full bg-amber-300 border-4 border-amber-500 flex items-center justify-center shadow-lg text-amber-900 font-display font-bold text-xl">
+                                Rp500
+                            </div>
+                            <!-- SVG Dadu -->
+                            <div class="w-20 h-20 rounded-2xl bg-white border-4 border-slate-200 flex items-center justify-center shadow-lg">
+                                <svg class="w-12 h-12 text-indigo-600" viewBox="0 0 64 64" fill="currentColor">
+                                    <circle cx="18" cy="18" r="5"/>
+                                    <circle cx="46" cy="18" r="5"/>
+                                    <circle cx="32" cy="32" r="5"/>
+                                    <circle cx="18" cy="46" r="5"/>
+                                    <circle cx="46" cy="46" r="5"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="text-sm font-medium text-blue-50">
+                            "Apakah besok akan turun hujan? Berapa peluang muncul angka 5 saat melempar dadu?"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+        <!-- ========================================================= -->
+        <!-- BAGIAN 1: ISTILAH DASAR DALAM PELUANG                     -->
+        <!-- ========================================================= -->
+        <section id="istilah" class="scroll-mt-24">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">Bagian 1</span>
+                <h2 class="font-display text-2xl sm:text-4xl font-bold text-slate-900 mt-2 mb-3">
+                    Mengenal 3 Istilah Penting dalam Peluang
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    Sebelum menghitung peluang, kita harus memahami tiga istilah dasar berikut saat melakukan pengamatan.
+                </p>
+            </div>
+
+            <!-- 3 Kartu Konsep Utama -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Kartu 1: Percobaan -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl mb-4">
+                        🧪
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-slate-900 mb-2">1. Percobaan</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        <strong>Percobaan</strong> adalah suatu kegiatan yang dilakukan untuk memperoleh hasil atau mengamati suatu kejadian yang belum pasti.
+                    </p>
+                    <div class="bg-blue-50 rounded-2xl p-3.5 text-xs text-blue-900 space-y-1">
+                        <p class="font-bold">Contoh Percobaan:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Melempar sebuah uang koin.</li>
+                            <li>Menggelindingkan sebuah dadu.</li>
+                            <li>Mengambil kelereng dari dalam kantong.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Kartu 2: Hasil -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mb-4">
+                        🎯
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-slate-900 mb-2">2. Hasil</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        <strong>Hasil</strong> adalah kejadian atau peristiwa yang muncul dari <strong>satu kali</strong> percobaan yang dilakukan.
+                    </p>
+                    <div class="bg-amber-50 rounded-2xl p-3.5 text-xs text-amber-900 space-y-1">
+                        <p class="font-bold">Contoh Hasil:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Muncul sisi <strong>Gambar</strong> pada koin.</li>
+                            <li>Muncul mata dadu <strong>4</strong>.</li>
+                            <li>Terambil <strong>kelereng biru</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Kartu 3: Semua Kemungkinan Hasil -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-4">
+                        📦
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-slate-900 mb-2">3. Semua Kemungkinan Hasil</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        <strong>Semua kemungkinan hasil</strong> (disebut juga <em>ruang sampel</em>) adalah kumpulan seluruh hasil yang mungkin muncul dari suatu percobaan.
+                    </p>
+                    <div class="bg-emerald-50 rounded-2xl p-3.5 text-xs text-emerald-900 space-y-1">
+                        <p class="font-bold">Contoh Semua Kemungkinan:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Koin: <strong>{Angka, Gambar}</strong> (ada 2).</li>
+                            <li>Dadu: <strong>{1, 2, 3, 4, 5, 6}</strong> (ada 6).</li>
+                            <li>Lampu lalu lintas: <strong>{Merah, Kuning, Hijau}</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Eksplorasi Contoh Interaktif -->
+            <div class="bg-indigo-50/80 border border-indigo-100 rounded-3xl p-6 sm:p-8">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h3 class="font-display text-lg sm:text-xl font-bold text-indigo-950">🔍 Klik Benda untuk Melihat Rinciannya:</h3>
+                        <p class="text-xs sm:text-sm text-indigo-700">Pilih benda di bawah ini untuk membandingkan Percobaan, Hasil, dan Semua Kemungkinan Hasil.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="showTermDetail('koin')" id="btn-term-koin" class="term-btn px-4 py-2.5 rounded-xl font-semibold text-sm bg-indigo-600 text-white shadow-sm transition">
+                            🪙 Uang Koin
+                        </button>
+                        <button onclick="showTermDetail('dadu')" id="btn-term-dadu" class="term-btn px-4 py-2.5 rounded-xl font-semibold text-sm bg-white text-slate-700 hover:bg-indigo-100 transition">
+                            🎲 Dadu 6 Sisi
+                        </button>
+                        <button onclick="showTermDetail('roda')" id="btn-term-roda" class="term-btn px-4 py-2.5 rounded-xl font-semibold text-sm bg-white text-slate-700 hover:bg-indigo-100 transition">
+                            🎡 Roda Warna
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Konten Dinamis Rincian Benda -->
+                <div id="termDetailBox" class="bg-white rounded-2xl p-5 sm:p-6 border border-indigo-100 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-4 animate-pop">
+                    <!-- Diisi oleh JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- BAGIAN 2: SIMULASI PERCOBAAN INTERAKTIF                   -->
+        <!-- ========================================================= -->
+        <section id="simulasi" class="scroll-mt-24">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1 rounded-full">Bagian 2</span>
+                <h2 class="font-display text-2xl sm:text-4xl font-bold text-slate-900 mt-2 mb-3">
+                    Laboratorium Percobaan Peluang
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    Lakukan percobaan secara langsung! Amati perbedaan antara <strong>semua kemungkinan hasil</strong> dengan <strong>hasil</strong> yang muncul setiap kali kamu menekan tombol.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-md overflow-hidden">
+                <!-- Tab Pilihan Simulasi -->
+                <div class="flex border-b border-slate-200 bg-slate-50 p-2 gap-2">
+                    <button onclick="switchSimTab('coin')" id="tab-sim-coin" class="flex-1 py-3 px-4 rounded-xl font-bold text-sm sm:text-base bg-indigo-600 text-white shadow-sm transition">
+                        🪙 Lempar Koin
+                    </button>
+                    <button onclick="switchSimTab('dice')" id="tab-sim-dice" class="flex-1 py-3 px-4 rounded-xl font-bold text-sm sm:text-base text-slate-600 hover:bg-white transition">
+                        🎲 Lempar Dadu
+                    </button>
+                </div>
+
+                <!-- Area Simulasi Koin -->
+                <div id="sim-panel-coin" class="p-6 sm:p-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <!-- Visual Koin & Tombol -->
+                        <div class="lg:col-span-5 flex flex-col items-center justify-center bg-slate-50 rounded-3xl p-6 border border-slate-200">
+                            <div id="coinVisual" class="w-32 h-32 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-300 border-8 border-amber-600 shadow-xl flex flex-col items-center justify-center text-amber-950 mb-6 select-none">
+                                <span id="coinFaceIcon" class="text-3xl mb-1">🦅</span>
+                                <span id="coinFaceText" class="font-display font-bold text-lg">GAMBAR</span>
+                            </div>
+
+                            <div class="flex gap-3 w-full max-w-xs">
+                                <button onclick="flipCoinAction()" class="flex-1 py-3.5 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold shadow-md shadow-indigo-200 transition">
+                                    Lempar Koin!
+                                </button>
+                                <button onclick="resetCoinStats()" class="py-3.5 px-4 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold text-sm transition" title="Ulangi dari 0">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Data & Analisis Percobaan Koin -->
+                        <div class="lg:col-span-7 space-y-4">
+                            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
+                                <span class="text-xs font-bold uppercase text-emerald-700">Semua Kemungkinan Hasil (2 Kemungkinan):</span>
+                                <div class="flex gap-2 mt-2">
+                                    <span class="px-3 py-1 rounded-lg bg-white border border-emerald-300 font-bold text-emerald-900 text-sm">1. Angka</span>
+                                    <span class="px-3 py-1 rounded-lg bg-white border border-emerald-300 font-bold text-emerald-900 text-sm">2. Gambar</span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-3 text-center">
+                                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3.5">
+                                    <span class="text-xs text-slate-500 block">Total Percobaan</span>
+                                    <span id="coinTotalCount" class="font-display text-2xl font-bold text-slate-900">0</span>
+                                </div>
+                                <div class="bg-blue-50 border border-blue-200 rounded-2xl p-3.5">
+                                    <span class="text-xs text-blue-700 block">Hasil: Angka</span>
+                                    <span id="coinAngkaCount" class="font-display text-2xl font-bold text-blue-800">0</span>
+                                </div>
+                                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3.5">
+                                    <span class="text-xs text-amber-700 block">Hasil: Gambar</span>
+                                    <span id="coinGambarCount" class="font-display text-2xl font-bold text-amber-800">0</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                                <span class="text-xs font-bold text-slate-500 block mb-2">Riwayat Hasil Percobaan Terakhir:</span>
+                                <div id="coinHistory" class="flex flex-wrap gap-1.5 min-h-[32px] items-center text-xs text-slate-400">
+                                    Belum ada percobaan. Klik "Lempar Koin!" untuk mulai.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Area Simulasi Dadu -->
+                <div id="sim-panel-dice" class="p-6 sm:p-8 hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <!-- Visual Dadu & Tombol -->
+                        <div class="lg:col-span-5 flex flex-col items-center justify-center bg-slate-50 rounded-3xl p-6 border border-slate-200">
+                            <div id="diceVisual" class="w-32 h-32 rounded-3xl bg-white border-4 border-indigo-200 shadow-xl flex items-center justify-center mb-6 select-none">
+                                <!-- SVG Dadu Dinamis -->
+                                <div id="diceSvgContainer" class="w-20 h-20 text-indigo-600"></div>
+                            </div>
+
+                            <div class="flex gap-3 w-full max-w-xs">
+                                <button onclick="rollDiceAction()" class="flex-1 py-3.5 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold shadow-md shadow-indigo-200 transition">
+                                    Kocok Dadu!
+                                </button>
+                                <button onclick="resetDiceStats()" class="py-3.5 px-4 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold text-sm transition" title="Ulangi dari 0">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Data & Analisis Percobaan Dadu -->
+                        <div class="lg:col-span-7 space-y-4">
+                            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
+                                <span class="text-xs font-bold uppercase text-emerald-700">Semua Kemungkinan Hasil (6 Kemungkinan):</span>
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    <span class="w-8 h-8 rounded-lg bg-white border border-emerald-300 font-bold text-emerald-900 text-sm flex items-center justify-center">1</span>
+                                    <span class="w-8 h-8 rounded-lg bg-white border border-emerald-300 font-bold text-emerald-900 text-sm flex items-center justify-center">2</span>
+                                    <span class="w-8 h-8 rounded-lg bg-white border border-emerald-300 font-bold text-emerald-900 text-sm flex items-center justify-center">3</span>
+                                    <span class="w-8 h-8 rounded-lg bg-white border border-emerald-300 font-bold text-emerald-900 text-sm flex items-center justify-center">4</span>
+                                    <span class="w-8 h-8 rounded-lg bg-white border border-emerald-300 font-bold text-emerald-900 text-sm flex items-center justify-center">5</span>
+                                    <span class="w-8 h-8 rounded-lg bg-white border border-emerald-300 font-bold text-emerald-900 text-sm flex items-center justify-center">6</span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                                <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-3 col-span-2 sm:col-span-1">
+                                    <span class="text-xs text-indigo-700 block">Percobaan</span>
+                                    <span id="diceTotalCount" class="font-display text-2xl font-bold text-indigo-900">0</span>
+                                </div>
+                                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 col-span-2 sm:col-span-3 flex flex-col justify-center">
+                                    <span class="text-xs text-slate-500 block">Hasil Lemparan Terakhir</span>
+                                    <span id="diceLastResult" class="font-display text-xl font-bold text-slate-800">-</span>
+                                </div>
+                            </div>
+
+                            <!-- Frekuensi Tiap Mata Dadu -->
+                            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                                <span class="text-xs font-bold text-slate-500 block mb-2.5">Catatan Kemunculan Setiap Angka:</span>
+                                <div id="diceFreqGrid" class="grid grid-cols-6 gap-2 text-center">
+                                    <!-- Diisi via JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- BAGIAN 3: KEJADIAN PASTI, MUNGKIN, DAN MUSTAHIL           -->
+        <!-- ========================================================= -->
+        <section id="kejadian" class="scroll-mt-24">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-xs font-bold uppercase tracking-wider text-rose-600 bg-rose-50 px-3 py-1 rounded-full">Bagian 3</span>
+                <h2 class="font-display text-2xl sm:text-4xl font-bold text-slate-900 mt-2 mb-3">
+                    Kejadian Mustahil, Mungkin, dan Pasti
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    Dalam kehidupan sehari-hari, setiap kejadian memiliki tingkat kemungkinan yang berbeda pada <strong>Skala Peluang</strong>.
+                </p>
+            </div>
+
+            <!-- Visual Garis Skala Peluang -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-8">
+                <h3 class="font-display text-lg font-bold text-slate-800 text-center mb-6">📊 Skala Peluang Suatu Kejadian</h3>
+                
+                <div class="relative pt-2 pb-6">
+                    <!-- Bar Gradien -->
+                    <div class="h-5 w-full rounded-full bg-gradient-to-r from-rose-500 via-amber-400 to-emerald-500 shadow-inner"></div>
+                    
+                    <!-- Penanda Titik Skala -->
+                    <div class="grid grid-cols-3 gap-2 mt-4 text-center">
+                        <div class="text-left">
+                            <span class="inline-block px-2.5 py-1 rounded-lg bg-rose-100 text-rose-800 font-bold text-xs sm:text-sm">0 • MUSTAHIL</span>
+                            <p class="text-xs text-slate-500 mt-1">Tidak akan pernah terjadi</p>
+                        </div>
+                        <div class="text-center">
+                            <span class="inline-block px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs sm:text-sm">MUNGKIN</span>
+                            <p class="text-xs text-slate-500 mt-1">Kurang mungkin • Sama mungkin • Sangat mungkin</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-bold text-xs sm:text-sm">1 • PASTI</span>
+                            <p class="text-xs text-slate-500 mt-1">Pasti selalu terjadi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Kartu Penjelasan Detail -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+                <!-- 1. Kejadian Mustahil -->
+                <div class="bg-white rounded-3xl border-2 border-rose-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-rose-100 text-rose-700 font-bold text-xs">Nilai Peluang = 0</span>
+                            <span class="text-3xl">🚫</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-rose-700 mb-2">Kejadian Mustahil</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Kejadian yang <strong>tidak mungkin terjadi</strong> sama sekali karena tidak ada di dalam semua kemungkinan hasil.
+                        </p>
+                    </div>
+                    <div class="bg-rose-50 rounded-2xl p-4 text-xs text-rose-950 space-y-2">
+                        <p class="font-bold text-rose-800">Contoh Sehari-hari:</p>
+                        <ul class="list-disc list-inside space-y-1.5">
+                            <li>Muncul mata dadu <strong>8</strong> pada lemparan sebuah dadu standar (1–6).</li>
+                            <li>Matahari terbit dari sebelah barat.</li>
+                            <li>Seekor kucing melahirkan anak ayam.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2. Kejadian Mungkin -->
+                <div class="bg-white rounded-3xl border-2 border-amber-300 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 font-bold text-xs">Antara 0 dan 1</span>
+                            <span class="text-3xl">🤔</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-amber-700 mb-2">Kejadian Mungkin</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                            Kejadian yang <strong>bisa terjadi dan bisa juga tidak terjadi</strong>. Terbagi menjadi 3 tingkatan:
+                        </p>
+                        <ul class="text-xs text-slate-700 space-y-1 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <li>🔸 <strong>Kurang mungkin:</strong> Peluangnya kecil.</li>
+                            <li>🔸 <strong>Sama mungkin:</strong> Peluangnya seimbang (50:50).</li>
+                            <li>🔸 <strong>Sangat mungkin:</strong> Peluangnya besar.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-amber-50 rounded-2xl p-4 text-xs text-amber-950 space-y-2">
+                        <p class="font-bold text-amber-800">Contoh Sehari-hari:</p>
+                        <ul class="list-disc list-inside space-y-1.5">
+                            <li>Hari ini turun hujan di kota tempat tinggalmu.</li>
+                            <li>Muncul sisi <strong>Angka</strong> saat melempar koin (<em>sama mungkin</em>).</li>
+                            <li>Tim sekolahmu memenangkan lomba cerdas cermat.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3. Kejadian Pasti -->
+                <div class="bg-white rounded-3xl border-2 border-emerald-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs">Nilai Peluang = 1</span>
+                            <span class="text-3xl">✅</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-emerald-700 mb-2">Kejadian Pasti</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Kejadian yang <strong>sudah tentu akan terjadi</strong> karena mencakup seluruh kemungkinan hasil yang ada.
+                        </p>
+                    </div>
+                    <div class="bg-emerald-50 rounded-2xl p-4 text-xs text-emerald-950 space-y-2">
+                        <p class="font-bold text-emerald-800">Contoh Sehari-hari:</p>
+                        <ul class="list-disc list-inside space-y-1.5">
+                            <li>Muncul angka <strong>kurang dari 7</strong> saat melempar dadu biasa.</li>
+                            <li>Setelah hari Minggu adalah hari Senin.</li>
+                            <li>Semua makhluk hidup pasti akan mati.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alat Interaktif: Kantong Kelereng Ajaib -->
+            <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl">
+                <div class="max-w-3xl mb-6">
+                    <span class="inline-block px-3 py-1 rounded-full bg-indigo-500/30 border border-indigo-400/30 text-indigo-200 text-xs font-bold mb-2">
+                        🧪 Eksperimen Kantong Kelereng
+                    </span>
+                    <h3 class="font-display text-xl sm:text-2xl font-bold">
+                        Ubah Isi Kantong & Lihat Peluang Terambilnya Kelereng Merah!
+                    </h3>
+                    <p class="text-slate-300 text-xs sm:text-sm mt-1">
+                        Atur jumlah kelereng merah dan biru di dalam kantong di bawah ini untuk melihat kapan kejadian terambilnya <strong>kelereng merah</strong> disebut Mustahil, Mungkin, atau Pasti.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <!-- Kontrol Jumlah Kelereng -->
+                    <div class="lg:col-span-5 bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-5 space-y-5">
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span class="text-rose-300">🔴 Kelereng Merah:</span>
+                                <span id="redMarbleCountLabel" class="font-bold text-white">3 buah</span>
+                            </div>
+                            <input type="range" id="redMarbleSlider" min="0" max="6" value="3" oninput="updateMarbleBag()" class="w-full accent-rose-500 cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span class="text-sky-300">🔵 Kelereng Biru:</span>
+                                <span id="blueMarbleCountLabel" class="font-bold text-white">3 buah</span>
+                            </div>
+                            <input type="range" id="blueMarbleSlider" min="0" max="6" value="3" oninput="updateMarbleBag()" class="w-full accent-sky-400 cursor-pointer">
+                        </div>
+
+                        <div class="pt-2 border-t border-white/10 text-xs text-slate-300">
+                            Total semua kemungkinan hasil: <strong id="totalMarbleLabel" class="text-white">6 kelereng</strong>
+                        </div>
+                    </div>
+
+                    <!-- Visualisasi Kantong & Status Kejadian -->
+                    <div class="lg:col-span-7 bg-white text-slate-800 rounded-2xl p-5 sm:p-6 shadow-lg">
+                        <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Isi Di Dalam Kantong:</div>
+                        <div id="marbleBagVisual" class="flex flex-wrap gap-2.5 min-h-[56px] p-3.5 bg-slate-100 rounded-xl border border-slate-200 items-center mb-4">
+                            <!-- Bola kelereng dirender via JS -->
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl bg-indigo-50 border border-indigo-100">
+                            <div>
+                                <span class="text-xs text-slate-500 block">Status Terambilnya Kelereng Merah:</span>
+                                <span id="marbleStatusBadge" class="inline-block mt-1 px-3 py-1 rounded-lg font-display font-bold text-base bg-amber-100 text-amber-800">
+                                    MUNGKIN (Sama Mungkin)
+                                </span>
+                            </div>
+                            <p id="marbleExplanation" class="text-xs text-slate-600 sm:max-w-xs leading-relaxed">
+                                Jumlah kelereng merah dan biru sama banyak (3 banding 3), sehingga peluang terambilnya sama besar.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- BAGIAN 4: KUIS INTERAKTIF PELUANG                         -->
+        <!-- ========================================================= -->
+        <section id="kuis" class="scroll-mt-24">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">Bagian 4</span>
+                <h2 class="font-display text-2xl sm:text-4xl font-bold text-slate-900 mt-2 mb-3">
+                    Kuis Tantangan Bab 4: Peluang
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    Uji pemahamanmu! Jawab 8 soal berikut untuk melihat seberapa mahir kamu memahami materi peluang kelas 6.
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-white rounded-3xl border border-slate-200 shadow-md overflow-hidden">
+                <!-- Progress Bar Kuis -->
+                <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                    <span id="quizProgressText" class="text-xs sm:text-sm font-bold text-indigo-600">Soal 1 dari 8</span>
+                    <span id="quizScoreText" class="text-xs sm:text-sm font-bold text-slate-600">Skor: 0</span>
+                </div>
+                <div class="w-full bg-slate-200 h-2">
+                    <div id="quizProgressBar" class="bg-indigo-600 h-2 transition-all duration-300" style="width: 12.5%"></div>
+                </div>
+
+                <!-- Kontainer Soal Aktif -->
+                <div id="quizQuestionContainer" class="p-6 sm:p-8">
+                    <span id="quizCategoryBadge" class="inline-block px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold mb-3">
+                        Kategori: Istilah Peluang
+                    </span>
+                    <h3 id="quizQuestionText" class="font-display text-lg sm:text-2xl font-bold text-slate-900 leading-snug mb-6">
+                        Memuat soal...
+                    </h3>
+
+                    <!-- Pilihan Jawaban -->
+                    <div id="quizOptionsContainer" class="space-y-3">
+                        <!-- Tombol opsi dirender oleh JS -->
+                    </div>
+
+                    <!-- Kotak Penjelasan Setelah Menjawab -->
+                    <div id="quizFeedbackBox" class="hidden mt-6 p-4 rounded-2xl border text-sm leading-relaxed animate-pop">
+                        <p id="quizFeedbackTitle" class="font-bold mb-1"></p>
+                        <p id="quizFeedbackDesc"></p>
+                    </div>
+
+                    <!-- Tombol Lanjut -->
+                    <div class="mt-6 flex justify-end">
+                        <button id="quizNextBtn" onclick="nextQuizQuestion()" class="hidden px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md transition">
+                            Soal Berikutnya →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Kontainer Hasil Akhir Kuis -->
+                <div id="quizResultContainer" class="hidden p-8 text-center animate-pop">
+                    <div id="quizResultEmoji" class="text-6xl mb-4">🏆</div>
+                    <h3 class="font-display text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Kuis Selesai!</h3>
+                    <p id="quizResultMessage" class="text-slate-600 text-sm sm:text-base max-w-md mx-auto mb-6">
+                        Hebat! Kamu telah menyelesaikan latihan Bab 4 Peluang.
+                    </p>
+                    <div class="inline-block bg-indigo-50 border border-indigo-200 rounded-2xl px-8 py-4 mb-6">
+                        <span class="text-xs font-bold uppercase text-indigo-600 block">Nilai Akhir Kamu</span>
+                        <span id="quizFinalScore" class="font-display text-4xl font-bold text-indigo-900">100</span>
+                    </div>
+                    <div>
+                        <button onclick="restartQuiz()" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md transition">
+                            🔄 Ulangi Kuis Lagi
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 mt-16 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs sm:text-sm space-y-2">
+            <p class="text-white font-display font-semibold text-base">Modul Interaktif Matematika Kelas 6 SD • Semester 2</p>
+            <p>Bab 4: Peluang (Percobaan, Hasil, Semua Kemungkinan Hasil, serta Kejadian Pasti, Mungkin, dan Mustahil)</p>
+        </div>
+    </footer>
+
+    <!-- ========================================================= -->
+    <!-- LOGIKA JAVASCRIPT INTERAKTIF                              -->
+    <!-- ========================================================= -->
+    <script>
+        // -----------------------------------------------------------
+        // 1. SISTEM EFEK SUARA SEDERHANA (WEB AUDIO API)
+        // -----------------------------------------------------------
+        let soundEnabled = true;
+        let audioCtx = null;
+
+        function playTone(type) {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    audioCtx = new AudioContext();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'flip') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(320, now);
+                    osc.frequency.exponentialRampToValueAtTime(640, now + 0.15);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.16);
+                    osc.start(now);
+                    osc.stop(now + 0.16);
+                } else if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.linearRampToValueAtTime(160, now + 0.25);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.26);
+                    osc.start(now);
+                    osc.stop(now + 0.26);
+                }
+            } catch (err) {
+                // Abaikan jika browser memblokir audio
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('soundIcon');
+            const label = document.getElementById('soundLabel');
+            if (soundEnabled) {
+                icon.textContent = '🔊';
+                label.textContent = 'Suara Aktif';
+                playTone('flip');
+            } else {
+                icon.textContent = '🔇';
+                label.textContent = 'Suara Mati';
+            }
+        }
+
+        // -----------------------------------------------------------
+        // 2. EKSPLORASI ISTILAH DASAR (KOIN, DADU, RODA WARNA)
+        // -----------------------------------------------------------
+        const termExamples = {
+            koin: {
+                percobaan: 'Melempar 1 keping uang logam ke atas.',
+                hasil: 'Muncul sisi Angka (atau muncul sisi Gambar).',
+                semua: '{Angka, Gambar} — Total ada 2 kemungkinan hasil.'
+            },
+            dadu: {
+                percobaan: 'Menggelindingkan 1 buah dadu bermata enam.',
+                hasil: 'Muncul mata dadu 3 (salah satu angka yang menghadap ke atas).',
+                semua: '{1, 2, 3, 4, 5, 6} — Total ada 6 kemungkinan hasil.'
+            },
+            roda: {
+                percobaan: 'Memutar jarum pada roda putar berwarna Merah, Kuning, Hijau, dan Biru.',
+                hasil: 'Jarum berhenti menunjuk pada bagian warna Hijau.',
+                semua: '{Merah, Kuning, Hijau, Biru} — Total ada 4 kemungkinan hasil.'
+            }
+        };
+
+        function showTermDetail(key) {
+            playTone('flip');
+            // Update tampilan tombol aktif
+            document.querySelectorAll('.term-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-white', 'text-slate-700');
+            });
+            const activeBtn = document.getElementById('btn-term-' + key);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-slate-700');
+                activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
+            }
+
+            const data = termExamples[key];
+            const box = document.getElementById('termDetailBox');
+            box.classList.remove('animate-pop');
+            void box.offsetWidth; // Trigger reflow untuk ulang animasi
+            box.classList.add('animate-pop');
+
+            box.innerHTML = `
+                <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-100">
+                    <span class="text-xs font-bold uppercase text-blue-600 block mb-1">🧪 Percobaan</span>
+                    <p class="text-sm font-medium text-slate-800">${data.percobaan}</p>
+                </div>
+                <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-100">
+                    <span class="text-xs font-bold uppercase text-amber-600 block mb-1">🎯 Contoh Hasil (1x Coba)</span>
+                    <p class="text-sm font-medium text-slate-800">${data.hasil}</p>
+                </div>
+                <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-100">
+                    <span class="text-xs font-bold uppercase text-emerald-600 block mb-1">📦 Semua Kemungkinan Hasil</span>
+                    <p class="text-sm font-medium text-slate-800">${data.semua}</p>
+                </div>
+            `;
+        }
+
+        // -----------------------------------------------------------
+        // 3. SIMULASI PERCOBAAN (KOIN & DADU)
+        // -----------------------------------------------------------
+        function switchSimTab(tab) {
+            playTone('flip');
+            const coinTab = document.getElementById('tab-sim-coin');
+            const diceTab = document.getElementById('tab-sim-dice');
+            const coinPanel = document.getElementById('sim-panel-coin');
+            const dicePanel = document.getElementById('sim-panel-dice');
+
+            if (tab === 'coin') {
+                coinTab.className = 'flex-1 py-3 px-4 rounded-xl font-bold text-sm sm:text-base bg-indigo-600 text-white shadow-sm transition';
+                diceTab.className = 'flex-1 py-3 px-4 rounded-xl font-bold text-sm sm:text-base text-slate-600 hover:bg-white transition';
+                coinPanel.classList.remove('hidden');
+                dicePanel.classList.add('hidden');
+            } else {
+                diceTab.className = 'flex-1 py-3 px-4 rounded-xl font-bold text-sm sm:text-base bg-indigo-600 text-white shadow-sm transition';
+                coinTab.className = 'flex-1 py-3 px-4 rounded-xl font-bold text-sm sm:text-base text-slate-600 hover:bg-white transition';
+                dicePanel.classList.remove('hidden');
+                coinPanel.classList.add('hidden');
+            }
+        }
+
+        // Logika Simulasi Koin
+        let coinStats = { total: 0, angka: 0, gambar: 0, history: [] };
+
+        function flipCoinAction() {
+            playTone('flip');
+            const visual = document.getElementById('coinVisual');
+            visual.classList.remove('animate-flip');
+            void visual.offsetWidth;
+            visual.classList.add('animate-flip');
+
+            const isAngka = Math.random() < 0.5;
+            const resultText = isAngka ? 'ANGKA' : 'GAMBAR';
+            const resultIcon = isAngka ? '🔢' : '🦅';
+
+            setTimeout(() => {
+                document.getElementById('coinFaceIcon').textContent = resultIcon;
+                document.getElementById('coinFaceText').textContent = resultText;
+
+                coinStats.total++;
+                if (isAngka) coinStats.angka++;
+                else coinStats.gambar++;
+
+                coinStats.history.unshift(resultText);
+                if (coinStats.history.length > 10) coinStats.history.pop();
+
+                updateCoinUI();
+            }, 250);
+        }
+
+        function updateCoinUI() {
+            document.getElementById('coinTotalCount').textContent = coinStats.total;
+            document.getElementById('coinAngkaCount').textContent = coinStats.angka;
+            document.getElementById('coinGambarCount').textContent = coinStats.gambar;
+
+            const historyEl = document.getElementById('coinHistory');
+            if (coinStats.history.length === 0) {
+                historyEl.innerHTML = 'Belum ada percobaan. Klik "Lempar Koin!" untuk mulai.';
+            } else {
+                historyEl.innerHTML = coinStats.history.map(item => {
+                    const badgeClass = item === 'ANGKA'
+                        ? 'bg-blue-100 text-blue-800 border-blue-200'
+                        : 'bg-amber-100 text-amber-800 border-amber-200';
+                    return `<span class="px-2.5 py-1 rounded-md border font-bold text-xs ${badgeClass}">${item}</span>`;
+                }).join('');
+            }
+        }
+
+        function resetCoinStats() {
+            coinStats = { total: 0, angka: 0, gambar: 0, history: [] };
+            updateCoinUI();
+        }
+
+        // Logika Simulasi Dadu
+        let diceStats = { total: 0, freq: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 } };
+
+        function getDiceSvg(face) {
+            const dots = {
+                1: [[32, 32]],
+                2: [[18, 18], [46, 46]],
+                3: [[18, 18], [32, 32], [46, 46]],
+                4: [[18, 18], [46, 18], [18, 46], [46, 46]],
+                5: [[18, 18], [46, 18], [32, 32], [18, 46], [46, 46]],
+                6: [[18, 16], [46, 16], [18, 32], [46, 32], [18, 48], [46, 48]]
+            };
+            const circles = (dots[face] || dots[1]).map(([cx, cy]) => `<circle cx="${cx}" cy="${cy}" r="5.5"/>`).join('');
+            return `<svg viewBox="0 0 64 64" fill="currentColor" class="w-full h-full">${circles}</svg>`;
+        }
+
+        function rollDiceAction() {
+            playTone('flip');
+            const visual = document.getElementById('diceVisual');
+            visual.classList.remove('animate-roll');
+            void visual.offsetWidth;
+            visual.classList.add('animate-roll');
+
+            const face = Math.floor(Math.random() * 6) + 1;
+
+            setTimeout(() => {
+                document.getElementById('diceSvgContainer').innerHTML = getDiceSvg(face);
+                diceStats.total++;
+                diceStats.freq[face]++;
+                document.getElementById('diceTotalCount').textContent = diceStats.total;
+                document.getElementById('diceLastResult').textContent = `Mata Dadu ${face}`;
+                renderDiceFreqGrid();
+            }, 220);
+        }
+
+        function renderDiceFreqGrid() {
+            const grid = document.getElementById('diceFreqGrid');
+            let html = '';
+            for (let i = 1; i <= 6; i++) {
+                html += `
+                    <div class="bg-white border border-slate-200 rounded-xl p-2">
+                        <span class="text-xs font-bold text-indigo-600 block">Angka ${i}</span>
+                        <span class="font-display text-lg font-bold text-slate-800">${diceStats.freq[i]}x</span>
+                    </div>
+                `;
+            }
+            grid.innerHTML = html;
+        }
+
+        function resetDiceStats() {
+            diceStats = { total: 0, freq: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 } };
+            document.getElementById('diceTotalCount').textContent = '0';
+            document.getElementById('diceLastResult').textContent = '-';
+            document.getElementById('diceSvgContainer').innerHTML = getDiceSvg(5);
+            renderDiceFreqGrid();
+        }
+
+        // -----------------------------------------------------------
+        // 4. EKSPERIMEN KANTONG KELERENG (PASTI, MUNGKIN, MUSTAHIL)
+        // -----------------------------------------------------------
+        function updateMarbleBag() {
+            const redSlider = document.getElementById('redMarbleSlider');
+            const blueSlider = document.getElementById('blueMarbleSlider');
+            let red = parseInt(redSlider.value, 10);
+            let blue = parseInt(blueSlider.value, 10);
+
+            // Cegah kantong kosong total (minimal ada 1 kelereng)
+            if (red === 0 && blue === 0) {
+                blue = 1;
+                blueSlider.value = 1;
+            }
+
+            const total = red + blue;
+            document.getElementById('redMarbleCountLabel').textContent = `${red} buah`;
+            document.getElementById('blueMarbleCountLabel').textContent = `${blue} buah`;
+            document.getElementById('totalMarbleLabel').textContent = `${total} kelereng`;
+
+            // Render visual bola kelereng
+            const bagVisual = document.getElementById('marbleBagVisual');
+            let marblesHtml = '';
+            for (let i = 0; i < red; i++) {
+                marblesHtml += `<span class="w-8 h-8 rounded-full bg-gradient-to-br from-rose-400 to-red-600 shadow-sm border border-red-700 flex items-center justify-center text-white text-xs font-bold" title="Kelereng Merah">M</span>`;
+            }
+            for (let i = 0; i < blue; i++) {
+                marblesHtml += `<span class="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-blue-600 shadow-sm border border-blue-700 flex items-center justify-center text-white text-xs font-bold" title="Kelereng Biru">B</span>`;
+            }
+            bagVisual.innerHTML = marblesHtml;
+
+            // Tentukan status kejadian terambilnya kelereng merah
+            const badge = document.getElementById('marbleStatusBadge');
+            const explanation = document.getElementById('marbleExplanation');
+
+            if (red === 0) {
+                badge.className = 'inline-block mt-1 px-3 py-1 rounded-lg font-display font-bold text-base bg-rose-100 text-rose-800';
+                badge.textContent = 'MUSTAHIL (Nilai = 0)';
+                explanation.textContent = 'Di dalam kantong tidak ada kelereng merah sama sekali (0 merah), sehingga mustahil terambil kelereng merah.';
+            } else if (blue === 0) {
+                badge.className = 'inline-block mt-1 px-3 py-1 rounded-lg font-display font-bold text-base bg-emerald-100 text-emerald-800';
+                badge.textContent = 'PASTI (Nilai = 1)';
+                explanation.textContent = 'Semua kelereng di dalam kantong berwarna merah, sehingga kelereng apa pun yang diambil pasti berwarna merah.';
+            } else if (red === blue) {
+                badge.className = 'inline-block mt-1 px-3 py-1 rounded-lg font-display font-bold text-base bg-amber-100 text-amber-800';
+                badge.textContent = 'MUNGKIN (Sama Mungkin)';
+                explanation.textContent = `Jumlah kelereng merah (${red}) dan biru (${blue}) sama banyak, sehingga peluang terambilnya sama besar.`;
+            } else if (red > blue) {
+                badge.className = 'inline-block mt-1 px-3 py-1 rounded-lg font-display font-bold text-base bg-amber-100 text-amber-800';
+                badge.textContent = 'MUNGKIN (Sangat Mungkin)';
+                explanation.textContent = `Kelereng merah (${red}) lebih banyak daripada biru (${blue}), sehingga sangat mungkin terambil kelereng merah.`;
+            } else {
+                badge.className = 'inline-block mt-1 px-3 py-1 rounded-lg font-display font-bold text-base bg-amber-100 text-amber-800';
+                badge.textContent = 'MUNGKIN (Kurang Mungkin)';
+                explanation.textContent = `Kelereng merah (${red}) lebih sedikit daripada biru (${blue}), sehingga kurang mungkin terambil kelereng merah.`;
+            }
+        }
+
+        // -----------------------------------------------------------
+        // 5. KUIS INTERAKTIF BAB 4 PELUANG (8 SOAL)
+        // -----------------------------------------------------------
+        const quizQuestions = [
+            {
+                category: 'Istilah Peluang',
+                question: 'Budi melemparkan sebuah dadu bermata enam ke atas meja. Kegiatan melempar dadu yang dilakukan Budi disebut ....',
+                options: ['Hasil', 'Percobaan', 'Semua kemungkinan hasil', 'Kejadian pasti'],
+                correctIndex: 1,
+                explanation: 'Kegiatan yang dilakukan untuk mengamati suatu kejadian (seperti melempar dadu) disebut Percobaan.'
+            },
+            {
+                category: 'Semua Kemungkinan Hasil',
+                question: 'Apa saja semua kemungkinan hasil dari percobaan melempar satu keping uang koin?',
+                options: ['{Angka}', '{Gambar}', '{Angka, Gambar}', '{1, 2, 3, 4, 5, 6}'],
+                correctIndex: 2,
+                explanation: 'Satu keping uang koin memiliki 2 sisi, sehingga semua kemungkinan hasilnya adalah {Angka, Gambar}.'
+            },
+            {
+                category: 'Hasil Percobaan',
+                question: 'Siti memutar roda warna (Merah, Kuning, Hijau). Saat berhenti, jarum menunjuk warna Kuning. Warna Kuning tersebut disebut ....',
+                options: ['Hasil', 'Percobaan', 'Kejadian mustahil', 'Semua kemungkinan hasil'],
+                correctIndex: 0,
+                explanation: 'Kejadian yang muncul dari satu kali percobaan disebut Hasil.'
+            },
+            {
+                category: 'Kejadian Mustahil',
+                question: 'Manakah di bawah ini yang merupakan contoh kejadian MUSTAHIL?',
+                options: [
+                    'Besok pagi turun hujan gerimis',
+                    'Muncul mata dadu 7 pada pelemparan satu dadu standar bermata 6',
+                    'Muncul sisi gambar saat melempar koin',
+                    'Setelah hari Jumat adalah hari Sabtu'
+                ],
+                correctIndex: 1,
+                explanation: 'Dadu standar hanya memiliki angka 1 sampai 6, sehingga muncul angka 7 adalah kejadian mustahil.'
+            },
+            {
+                category: 'Kejadian Pasti',
+                question: 'Di dalam kotak hanya terdapat 5 bola berwarna hijau. Jika Andi mengambil 1 bola tanpa melihat, maka terambilnya bola hijau adalah kejadian ....',
+                options: ['Mustahil', 'Kurang mungkin', 'Sama mungkin', 'Pasti'],
+                correctIndex: 3,
+                explanation: 'Karena seluruh isi kotak adalah bola hijau, maka bola yang terambil sudah tentu (pasti) berwarna hijau.'
+            },
+            {
+                category: 'Kejadian Mungkin',
+                question: 'Dalam sebuah kantong terdapat 8 permen rasa cokelat dan 2 permen rasa stroberi. Peluang terambilnya permen rasa cokelat termasuk kategori ....',
+                options: ['Mustahil', 'Mungkin (Sangat Mungkin)', 'Mungkin (Kurang Mungkin)', 'Pasti'],
+                correctIndex: 1,
+                explanation: 'Permen cokelat jauh lebih banyak (8 dari 10) daripada stroberi, sehingga kejadian terambilnya cokelat adalah Mungkin (Sangat Mungkin).'
+            },
+            {
+                category: 'Semua Kemungkinan Hasil',
+                question: 'Sebuah kantong berisi 1 kartu merah, 1 kartu kuning, dan 1 kartu biru. Berapa banyak semua kemungkinan hasil jika diambil 1 kartu?',
+                options: ['1 kemungkinan', '2 kemungkinan', '3 kemungkinan', '6 kemungkinan'],
+                correctIndex: 2,
+                explanation: 'Semua kemungkinan hasilnya adalah {Merah, Kuning, Biru}, jadi terdapat 3 kemungkinan hasil.'
+            },
+            {
+                category: 'Kejadian Pasti',
+                question: 'Pada pelemparan sebuah dadu bermata enam, kejadian munculnya angka kurang dari 7 merupakan kejadian ....',
+                options: ['Pasti', 'Mustahil', 'Kurang mungkin', 'Sama mungkin'],
+                correctIndex: 0,
+                explanation: 'Semua angka pada dadu (1, 2, 3, 4, 5, dan 6) bernilai kurang dari 7, sehingga kejadian ini Pasti terjadi.'
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let hasAnsweredCurrent = false;
+
+        function renderQuizQuestion() {
+            const q = quizQuestions[currentQuizIndex];
+            hasAnsweredCurrent = false;
+
+            document.getElementById('quizProgressText').textContent = `Soal ${currentQuizIndex + 1} dari ${quizQuestions.length}`;
+            document.getElementById('quizScoreText').textContent = `Skor: ${quizScore}`;
+            const progressPct = ((currentQuizIndex + 1) / quizQuestions.length) * 100;
+            document.getElementById('quizProgressBar').style.width = `${progressPct}%`;
+
+            document.getElementById('quizCategoryBadge').textContent = `Kategori: ${q.category}`;
+            document.getElementById('quizQuestionText').textContent = q.question;
+
+            const optionsContainer = document.getElementById('quizOptionsContainer');
+            const letters = ['A', 'B', 'C', 'D'];
+            optionsContainer.innerHTML = q.options.map((opt, idx) => `
+                <button onclick="selectQuizOption(${idx})" id="quiz-opt-${idx}" class="quiz-opt-btn w-full text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50 transition flex items-center gap-3.5 font-medium text-slate-800">
+                    <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 font-bold text-sm flex items-center justify-center shrink-0">${letters[idx]}</span>
+                    <span>${opt}</span>
+                </button>
+            `).join('');
+
+            document.getElementById('quizFeedbackBox').classList.add('hidden');
+            document.getElementById('quizNextBtn').classList.add('hidden');
+        }
+
+        function selectQuizOption(selectedIndex) {
+            if (hasAnsweredCurrent) return;
+            hasAnsweredCurrent = true;
+
+            const q = quizQuestions[currentQuizIndex];
+            const isCorrect = selectedIndex === q.correctIndex;
+
+            if (isCorrect) {
+                quizScore += 12.5;
+                playTone('correct');
+            } else {
+                playTone('wrong');
+            }
+
+            document.getElementById('quizScoreText').textContent = `Skor: ${Math.round(quizScore)}`;
+
+            // Warnai semua opsi
+            document.querySelectorAll('.quiz-opt-btn').forEach((btn, idx) => {
+                btn.disabled = true;
+                btn.classList.remove('hover:border-indigo-400', 'hover:bg-indigo-50/50');
+                if (idx === q.correctIndex) {
+                    btn.classList.remove('border-slate-200');
+                    btn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-950');
+                } else if (idx === selectedIndex && !isCorrect) {
+                    btn.classList.remove('border-slate-200');
+                    btn.classList.add('border-rose-500', 'bg-rose-50', 'text-rose-950');
+                } else {
+                    btn.classList.add('opacity-60');
+                }
+            });
+
+            // Tampilkan feedback
+            const feedbackBox = document.getElementById('quizFeedbackBox');
+            const feedbackTitle = document.getElementById('quizFeedbackTitle');
+            const feedbackDesc = document.getElementById('quizFeedbackDesc');
+
+            feedbackBox.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-200', 'text-emerald-900', 'bg-rose-50', 'border-rose-200', 'text-rose-900');
+
+            if (isCorrect) {
+                feedbackBox.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-900');
+                feedbackTitle.textContent = '🎉 Jawaban Kamu Benar!';
+            } else {
+                feedbackBox.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-900');
+                feedbackTitle.textContent = '💡 Kurang Tepat, Yuk Pelajari Penjelasannya:';
+            }
+            feedbackDesc.textContent = q.explanation;
+
+            const nextBtn = document.getElementById('quizNextBtn');
+            nextBtn.textContent = currentQuizIndex < quizQuestions.length - 1 ? 'Soal Berikutnya →' : 'Lihat Hasil Akhir 🏆';
+            nextBtn.classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            playTone('flip');
+            if (currentQuizIndex < quizQuestions.length - 1) {
+                currentQuizIndex++;
+                renderQuizQuestion();
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function showQuizResult() {
+            playTone('correct');
+            document.getElementById('quizQuestionContainer').classList.add('hidden');
+            const resultContainer = document.getElementById('quizResultContainer');
+            resultContainer.classList.remove('hidden');
+
+            const finalScore = Math.round(quizScore);
+            document.getElementById('quizFinalScore').textContent = finalScore;
+
+            const emojiEl = document.getElementById('quizResultEmoji');
+            const msgEl = document.getElementById('quizResultMessage');
+
+            if (finalScore >= 85) {
+                emojiEl.textContent = '🏆';
+                msgEl.textContent = 'Luar biasa! Kamu sudah sangat menguasai konsep percobaan, hasil, dan skala peluang kelas 6.';
+            } else if (finalScore >= 60) {
+                emojiEl.textContent = '🌟';
+                msgEl.textContent = 'Bagus sekali! Kamu sudah memahami sebagian besar materi peluang. Coba ulangi lagi untuk mendapat nilai 100!';
+            } else {
+                emojiEl.textContent = '📚';
+                msgEl.textContent = 'Tetap semangat belajar! Coba baca kembali bagian Istilah Dasar dan Simulasi di atas, lalu ulangi kuisnya ya.';
+            }
+        }
+
+        function restartQuiz() {
+            playTone('flip');
+            currentQuizIndex = 0;
+            quizScore = 0;
+            document.getElementById('quizResultContainer').classList.add('hidden');
+            document.getElementById('quizQuestionContainer').classList.remove('hidden');
+            renderQuizQuestion();
+        }
+
+        // -----------------------------------------------------------
+        // 6. INISIALISASI SAAT HALAMAN SELESAI DIMUAT
+        // -----------------------------------------------------------
+        window.onload = function () {
+            showTermDetail('koin');
+            document.getElementById('diceSvgContainer').innerHTML = getDiceSvg(5);
+            renderDiceFreqGrid();
+            updateMarbleBag();
+            renderQuizQuestion();
+        };
+    </script>
+</body>
+</html>
